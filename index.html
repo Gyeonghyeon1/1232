@@ -2,10 +2,10 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>가장 마지막 열에서 0이 아닌 마지막 행 값</title>
+  <title>총 금액</title>
 </head>
 <body>
-  <h1>가장 마지막 열에서 0이 아닌 마지막 행 값</h1>
+  <h1>총 금액</h1>
   <p><span id="finalValue">로딩 중...</span></p>
 
   <script>
@@ -16,7 +16,7 @@
       .then(csvText => {
         const rows = csvText.trim().split("\n").map(row => row.split(","));
         const lastColumnIndex = rows[0].length - 1; // 가장 마지막 열 인덱스
-        let finalValue = "0이 아닌 값 없음";
+        let finalValue = "오류";
 
         for (let i = rows.length - 1; i >= 0; i--) {
           const cell = rows[i][lastColumnIndex]?.trim() || "";
