@@ -2,10 +2,10 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>'dj' 행 마지막 0이 아닌 값</title>
+  <title>'dj' 행 마지막 0이 아닌 값 (문자 포함)</title>
 </head>
 <body>
-  <h1>구글 시트 'dj' 행에서 가장 마지막 0이 아닌 값</h1>
+  <h1>구글 시트 'dj' 행에서 마지막 0이 아닌 값 (문자 포함)</h1>
   <p><span id="finalValue">로딩 중...</span></p>
 
   <script>
@@ -15,9 +15,9 @@
       .then(res => res.text())
       .then(csvText => {
         const rows = csvText.trim().split("\n").map(row => row.split(","));
-        const targetRowIndex = 109; // 0부터 시작해서 109가 110번째 행 = 'dj'행
+        const targetRowIndex = 109; // 'dj' 행 (110번째, 0부터 시작)
 
-        if(targetRowIndex >= rows.length){
+        if (targetRowIndex >= rows.length) {
           document.getElementById("finalValue").textContent = "'dj' 행이 없습니다.";
           return;
         }
@@ -27,8 +27,7 @@
 
         for (let i = targetRow.length - 1; i >= 0; i--) {
           const cell = targetRow[i].trim();
-          const num = Number(cell);
-          if (cell !== "" && !isNaN(num) && num !== 0) {
+          if (cell !== "" && cell !== "0") {
             finalValue = cell;
             break;
           }
