@@ -2,10 +2,10 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>'dj' 행 마지막 0이 아닌 값 (숫자 0 및 문자 "0" 제외)</title>
+  <title>가장 마지막 열에서 0이 아닌 마지막 행 값</title>
 </head>
 <body>
-  <h1>구글 시트 'dj' 행에서 마지막 0이 아닌 값</h1>
+  <h1>가장 마지막 열에서 0이 아닌 마지막 행 값</h1>
   <p><span id="finalValue">로딩 중...</span></p>
 
   <script>
@@ -15,24 +15,14 @@
       .then(res => res.text())
       .then(csvText => {
         const rows = csvText.trim().split("\n").map(row => row.split(","));
-        const targetRowIndex = 109; // 'dj' 행 (110번째, 0부터 시작)
-
-        if (targetRowIndex >= rows.length) {
-          document.getElementById("finalValue").textContent = "'dj' 행이 없습니다.";
-          return;
-        }
-
-        const targetRow = rows[targetRowIndex];
+        const lastColumnIndex = rows[0].length - 1; // 가장 마지막 열 인덱스
         let finalValue = "0이 아닌 값 없음";
 
-        for (let i = targetRow.length - 1; i >= 0; i--) {
-          const cell = targetRow[i].trim();
+        for (let i = rows.length - 1; i >= 0; i--) {
+          const cell = rows[i][lastColumnIndex]?.trim() || "";
           if (cell !== "" && cell !== "0") {
-            const num = Number(cell);
-            if (isNaN(num) || num !== 0) {
-              finalValue = cell;
-              break;
-            }
+            finalValue = cell;
+            break;
           }
         }
 
